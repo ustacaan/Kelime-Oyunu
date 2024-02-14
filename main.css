@@ -1,0 +1,292 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+/*
+  2. Remove default margin
+*/
+* {
+  margin: 0;
+  padding: 0;
+}
+/*
+  Typographic tweaks!
+  3. Add accessible line-height
+  4. Improve text rendering
+*/
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+/*
+  5. Improve media defaults
+*/
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+/*
+  6. Remove built-in form typography styles
+*/
+input, button, textarea, select {
+  font: inherit;
+}
+/*
+  7. Avoid text overflows
+*/
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* general settings */
+body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  color: hsl(223, 21%, 27%);
+  background-color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  margin-block: 1.5em;
+}
+
+/* header */
+.page-title {
+  text-align: center;
+  margin-block-end: 1em;
+}
+
+/* keyboard */
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: 0.35em;
+  justify-content: center;
+}
+
+.key {
+  font-weight: 600;
+  border: 2px solid transparent;
+  background-color: hsl(
+    var(--hue, 222),
+    var(--saturation, 32%),
+    calc(var(--lightness, 90%) - var(--lightness-offset, 0%))
+  );
+  border-radius: 0.25em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em;
+  grid-column: span 2;
+  user-select: none;
+}
+
+.key.large {
+  grid-column: span 20;
+}
+
+.key img {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+
+.key:is(:hover, :focus) {
+  --lightness-offset: 10%;
+}
+
+.key.wrong {
+  --hue: 221;
+  --saturation: 21%;
+  --lightness: 71%;
+  color: #fff;
+}
+
+.key.wrong-location {
+  --hue: 44;
+  --saturation: 89%;
+  --lightness: 58%;
+  color: #fff;
+}
+
+.key.correct {
+  --hue: 97;
+  --saturation: 42%;
+  --lightness: 52%;
+  color: #fff;
+}
+
+/* guess tile */
+.guess-grid {
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1;
+  grid-template-columns: repeat(5, minmax(auto, 4em));
+  grid-template-rows: repeat(6, minmax(auto, 4em));
+  gap: 0.25em;
+  margin-block: 1em;
+}
+
+.tile {
+  color: hsl(224, 14%, 26%);
+  border: 2px solid hsl(224, 20%, 89%);
+  background-color: hsl(225, 100%, 99%);
+  font-weight: 600;
+  font-size: 2em;
+  margin: 5px;
+  border-radius: 5px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: transform 250ms linear;
+}
+
+.tile[data-state="active"] {
+  border-color: hsl(226, 17%, 70%);
+  animation: popIn 300ms forwards;
+}
+
+.tile[data-state="wrong"] {
+  background-color: hsl(221, 21%, 71%);
+  border: 2px solid transparent;
+  color: hsl(0, 0%, 100%);
+}
+
+.tile[data-state="wrong-location"] {
+  background-color: hsl(44, 89%, 58%);
+  border: 2px solid hsl(44, 89%, 58%);
+  color: hsl(0, 0%, 100%);
+}
+
+.tile[data-state="correct"] {
+  background-color: hsl(97, 42%, 52%);
+  border: 2px solid hsl(97, 42%, 52%);
+  color: hsl(0, 0%, 100%);
+}
+
+.tile.shake {
+  animation: shake 350ms ease-in-out;
+}
+
+.tile.dance {
+  animation: dance 350ms ease-in-out;
+}
+
+.tile.flip {
+  animation: flipIn 500ms ease-in;
+}
+
+/* animations */
+/* data-state = active */
+@keyframes popIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* winner dance */
+@keyframes dance {
+  20% {
+    transform: translateY(-50%);
+  }  
+
+  40% {
+    transform: translateY(5%);
+  }  
+
+  60% {
+    transform: translateY(-25%);
+  }  
+
+  80% {
+    transform: translateY(2.5%);
+  }  
+
+  90% {
+    transform: translateY(-5%);
+  }  
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* tile classList shake */
+@keyframes shake {
+  10% {
+    transform: translateX(-5%);
+  }
+  30% {
+    transform: translateX(5%);
+  }
+  50% {
+    transform: translateX(-7.5%);
+  }
+  70% {
+    transform: translateX(7.5%);
+  }
+  90% {
+    transform: translateX(5%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* tile classList flip */
+@keyframes flipIn{
+  0% {
+    transform: rotateX(0);
+  }
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+/* alert */
+.alert-container {
+  position: fixed;
+  top: 8vh;
+  left: 50vw;
+  transform: translate(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert {
+  pointer-events: none;
+  color: hsla(0, 0%, 0%);
+  font-weight: 700;
+  font-size: 1.3rem;
+  padding: 1em 0.5em;
+  text-align: center;
+  border-radius: 0.5em;
+  background-color: hsl(0, 0%, 100%);
+  box-shadow: 0 0 100px rgba(0,0,0,.3);
+  opacity: 1;
+  transition: opacity 500ms ease-in-out;
+  margin-bottom: .5em;
+}
+
+.alert:last-child {
+  margin-bottom: 0;
+}
+
+.hide {
+  display: none;
+}
