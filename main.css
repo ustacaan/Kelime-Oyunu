@@ -19,6 +19,8 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  text-align: center;
+  margin: 0 auto;
 }
 /*
   5. Improve media defaults
@@ -56,7 +58,7 @@ body {
 /* header */
 .page-title {
   text-align: center;
-  margin-block-end: 1em;
+  margin-top: -30px;
 }
 
 /* keyboard */
@@ -128,8 +130,7 @@ body {
   flex-grow: 1;
   grid-template-columns: repeat(5, minmax(auto, 4em));
   grid-template-rows: repeat(6, minmax(auto, 4em));
-  gap: 0.25em;
-  margin-block: 1em;
+  margin-block: 14px;
 }
 
 .tile {
@@ -138,7 +139,6 @@ body {
   background-color: hsl(225, 100%, 99%);
   font-weight: 600;
   font-size: 2em;
-  margin: 5px;
   border-radius: 5px;
   text-transform: uppercase;
   display: flex;
@@ -146,6 +146,8 @@ body {
   justify-content: center;
   user-select: none;
   transition: transform 250ms linear;
+  width: 55px;
+  height: 55px;
 }
 
 .tile[data-state="active"] {
@@ -289,4 +291,9 @@ body {
 
 .hide {
   display: none;
+}
+
+.guess-grid {
+  margin-left: 17px;
+  justify-content: center;
 }
